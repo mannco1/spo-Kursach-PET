@@ -1,95 +1,94 @@
-const sequelize = require('../db')
-const {DataTypes} = require('sequelize')
-
-const User = sequelize.define('user', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    email: {type: DataTypes.STRING, unique: true,},
-    password: {type: DataTypes.STRING},
-    role: {type: DataTypes.STRING, defaultValue: "USER"},
-})
-
-const Basket = sequelize.define('basket', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-})
-
-const BasketDevice = sequelize.define('basket_device', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-})
-
-const Device = sequelize.define('device', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    price: {type: DataTypes.INTEGER, allowNull: false},
-    rating: {type: DataTypes.INTEGER, defaultValue: 0},
-    img: {type: DataTypes.STRING, allowNull: false},
-})
-
-const Type = sequelize.define('type', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
-})
-
-const Brand = sequelize.define('brand', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
-})
-
-const Rating = sequelize.define('rating', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    rate: {type: DataTypes.INTEGER, allowNull: false},
-})
-
-const DeviceInfo = sequelize.define('device_info', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title: {type: DataTypes.STRING, allowNull: false},
-    description: {type: DataTypes.STRING, allowNull: false},
-})
-
-const TypeBrand = sequelize.define('type_brand', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-})
+// Импортируем Sequelize
+const { Sequelize, DataTypes } = require('sequelize');
 
 
-User.hasOne(Basket)
-Basket.belongsTo(User)
 
-User.hasMany(Rating)
-Rating.belongsTo(User)
+// Определяем модель Музыкантов
+const Musician = sequelize.define('Musician', {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  instrument: {
+    type: DataTypes.STRING
+  }
+});
 
-Basket.hasMany(BasketDevice)
-BasketDevice.belongsTo(Basket)
+// Определяем модель Ансамблей
+const Ensemble = sequelize.define('Ensemble', {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  type: {
+    type: DataTypes.STRING
+  }
+});
 
-Type.hasMany(Device)
-Device.belongsTo(Type)
+// Определяем модель Произведений
+const Composition = sequelize.define('Composition', {
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  composer: {
+    type: DataTypes.STRING
+  }
+});
 
-Brand.hasMany(Device)
-Device.belongsTo(Brand)
+// Определяем модель Пластинок
+const Record = sequelize.define('Record', {
+  stickerNumber: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    unique: true
+  },
+  releaseDate: {
+    type: DataTypes.DATE
+  },
+  wholesalePrice: {
+    type: DataTypes.FLOAT
+  },
+  retailPrice: {
+    type: DataTypes.FLOAT
+  },
+  quantitySoldLastYear: {
+    type: DataTypes.INTEGER
+  },
+  quantitySoldThisYear: {
+    type: DataTypes.INTEGER
+  },
+  remainingStock: {
+    type: DataTypes.INTEGER
+  }
+});
 
-Device.hasMany(Rating)
-Rating.belongsTo(Device)
+// Определяем модель Компаний
+const Company = sequelize.define('Company', {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  address: {
+    type: DataTypes.STRING
+  }
+});
 
-Device.hasMany(BasketDevice)
-BasketDevice.belongsTo(Device)
+// Определяем связи между моделями
+Musician.belongsTo(Ensemble);
+Ensemble.hasMany(Musician);
 
-Device.hasMany(DeviceInfo, {as: 'info'});
-DeviceInfo.belongsTo(Device)
+Composition.belongsToMany(Record, { through: 'CompositionRecord' });
+Record.belongsToMany(Composition, { through: 'CompositionRecord' });
 
-Type.belongsToMany(Brand, {through: TypeBrand })
-Brand.belongsToMany(Type, {through: TypeBrand })
+Record.belongsTo(Company);
+Company.hasMany(Record);
 
+// Экспортируем модели
 module.exports = {
-    User,
-    Basket,
-    BasketDevice,
-    Device,
-    Type,
-    Brand,
-    Rating,
-    TypeBrand,
-    DeviceInfo
-}
-
-
-
-
-
+  Musician,
+  Ensemble,
+  Composition,
+  Record,
+  Company
+};
