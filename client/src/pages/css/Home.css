@@ -1,0 +1,42 @@
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+.responsive-img {
+    width: 98px;
+    height: 117px;
+    
+   
+  }
+
+.mjolnir-pic{
+    max-width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: center;  
+    /* background-color: blueviolet; */
+}
+
+.container-Home{
+    width: 1120px;
+    margin: 0 0  4vw 0;
+    
+    
+}
+
+
+
+
+.button-style {
+    color: white !important;
+    background-color: transparent !important;
+    border: none !important;
+    font-family: 'JetBrains Mono', Arial, sans-serif !important;
+
+}
+
+
+.button-style:hover {
+    color: rgb(124, 0, 0) !important;
+    background-color: transparent !important;
+    
+}
