@@ -28,6 +28,11 @@ const Record = sequelize.define('Record', {
   remainingStock: { type: DataTypes.INTEGER }
 });
 
+const Company = sequelize.define('Company', {
+  name: { type: DataTypes.STRING, allowNull: false },
+  address: { type: DataTypes.STRING }
+});
+
 
 Musician.belongsTo(Ensemble);
 Ensemble.hasMany(Musician);
