@@ -4,10 +4,10 @@ const ApiError = require('../error/ApiError');
 class MusiciansController {
     async create(req, res) {
         const { name } = req.body;
-        const {insrtrument} = req.boy;
+        const {insrtrument} = req.body;
         const {role} = req.body;
         try {
-            const musicians = await Musicians.create({ name });
+            const musicians = await Musicians.create({ name,insrtrument,role });
 
                 
             return res.json(musicians);
@@ -38,26 +38,22 @@ class MusiciansController {
         return res.json(musicians)
     }
 
-    async update(req, res) {
+    async update(req, res, next) {
         const { id } = req.params;
-        const { name } = req.body;
-        const {insrtrument} = req.boy;
-        const {role} = req.body;
+        const { name,insrtrument,role} = req.body;
         try {
-            // Находим бренд по ID
-            const musicians = await Musicians.findByPk(id);
+            let musicians = await Musiciansusicians.findByPk(id);
             if (!musicians) {
-           
-                return next(ApiError.notFound('Музыкант не найден'));
+                return next(ApiError.notFound('Ансамбль не найден'));
             }
-           
-            musicians.name = name;
-           
-            await musicians.save();
-            return res.json(musicians);
-        } catch (err) {
             
-            return next(ApiError.internal('Ошибка при обновлении музыканта'));
+            // Обновляем поля ансамбля
+            musicians = await musicians.update({ name,insrtrument,role });
+    
+            // Возвращаем обновленный ансамбль
+            return res.json(musicians);  
+        } catch (err) {
+            return next(ApiError.internal('Ошибка при обновлении ансамбля'));
         }
     }
 

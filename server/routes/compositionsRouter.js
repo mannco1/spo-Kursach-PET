@@ -5,7 +5,7 @@ const compositionController = require('../controllers/сompositionController')
 router.post('/',compositionController.create)
 router.get('/',compositionController.getAll)
 router.get('/:id',compositionController.getOne)
-router.put('/',compositionController.update)
+router.put('/:id',compositionController.update)
 router.delete('/:id',compositionController.delete)
 
 module.exports = router

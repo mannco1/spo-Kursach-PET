@@ -1,23 +1,32 @@
 const { Record } = require('../models/models');
 const ApiError = require('../error/ApiError');
 
+
 class RecordController {
     async create(req, res, next) {
-        const { stickerNumber, releaseDate, wholesalePrice, retailPrice, quantitySoldLastYear, quantitySoldThisYear, remainingStock, companyId } = req.body;
+
         try {
-            const record = await Record.create({ stickerNumber, releaseDate, wholesalePrice, retailPrice, quantitySoldLastYear, quantitySoldThisYear, remainingStock, CompanyId: companyId });
+            const { stickerNumber, releaseDate, wholesalePrice, retailPrice } = req.body;
+            
+            const record = await Record.create({ stickerNumber, releaseDate, wholesalePrice, retailPrice });
+
+
+
+
+            
             return res.json(record);
         } catch (err) {
-            return next(ApiError.internal('Ошибка при создании пластинки'));
+            return next(ApiError.internal('Ошибка при создании компании'));
         }
     }
 
     async getAll(req, res, next) {
+
         try {
             const records = await Record.findAll();
-            return res.json(records);
+            return res.json(records);  
         } catch (err) {
-            return next(ApiError.internal('Ошибка при получении списка пластинок'));
+            return next(ApiError.internal('Ошибка при получении списка компаний'));
         }
     }
 
@@ -26,44 +35,40 @@ class RecordController {
         try {
             const record = await Record.findByPk(id);
             if (!record) {
-                return next(ApiError.notFound('Пластинка не найдена'));
+                return next(ApiError.notFound('Компания не найдена'));
             }
             return res.json(record);
         } catch (err) {
-            return next(ApiError.internal('Ошибка при получении пластинки'));
+            return next(ApiError.internal('Ошибка при получении компании'));
         }
     }
 
     async update(req, res, next) {
         const { id } = req.params;
-        const { stickerNumber, releaseDate, wholesalePrice, retailPrice, quantitySoldLastYear, quantitySoldThisYear, remainingStock, companyId } = req.body;
+        const { stickerNumber, releaseDate, wholesalePrice, retailPrice } = req.body;
         try {
-            const record = await Record.findByPk(id);
+            let record = await Record.findByPk(id);
             if (!record) {
-                return next(ApiError.notFound('Пластинка не найдена'));
+                return next(ApiError.notFound('Ансамбль не найден'));
             }
-            record.stickerNumber = stickerNumber;
-            record.releaseDate = releaseDate;
-            record.wholesalePrice = wholesalePrice;
-            record.retailPrice = retailPrice;
-            record.quantitySoldLastYear = quantitySoldLastYear;
-            record.quantitySoldThisYear = quantitySoldThisYear;
-            record.remainingStock = remainingStock;
-            record.CompanyId = companyId;
-            await record.save();
+
+            // Обновляем поля ансамбля
+            record = await Record.update({ stickerNumber, releaseDate, wholesalePrice, retailPrice });
+
+            // Возвращаем обновленный ансамбль
             return res.json(record);
         } catch (err) {
-            return next(ApiError.internal('Ошибка при обновлении пластинки'));
+            return next(ApiError.internal('Ошибка при обновлении ансамбля'));
         }
     }
 
     async delete(req, res, next) {
         const { id } = req.params;
         try {
-            await Record.destroy({ where: { id } });
-            return res.json({ message: 'Пластинка успешно удалена' });
+            await record.destroy({ where: { id } });
+            return res.json({ message: 'Компания успешно удалена' });
         } catch (err) {
-            return next(ApiError.internal('Ошибка при удалении пластинки'));
+            return next(ApiError.internal('Ошибка при удалении компании'));
         }
     }
 }

@@ -5,7 +5,7 @@ const musiciansController = require('../controllers/musiciansController')
 router.post('/',musiciansController.create)
 router.get('/',musiciansController.getAll)
 router.get('/:id',musiciansController.getOne)
-router.put('/',musiciansController.update)
+router.put('/:id',musiciansController.update)
 router.delete('/:id',musiciansController.delete)
 
 module.exports = router

@@ -12,7 +12,7 @@ const Ensemble = sequelize.define('Ensemble', {
 });
 
 
-const Composition = sequelize.define('Composition', {
+const Composition = sequelize.define('Composition', { 
   title: { type: DataTypes.STRING, allowNull: false },
   composer: { type: DataTypes.STRING }
 });
@@ -20,13 +20,15 @@ const Composition = sequelize.define('Composition', {
 
 const Record = sequelize.define('Record', {
   stickerNumber: { type: DataTypes.INTEGER, allowNull: false, unique: true },
-  releaseDate: { type: DataTypes.DATE },
-  wholesalePrice: { type: DataTypes.FLOAT },
-  retailPrice: { type: DataTypes.FLOAT },
-  quantitySoldLastYear: { type: DataTypes.INTEGER },
-  quantitySoldThisYear: { type: DataTypes.INTEGER },
-  remainingStock: { type: DataTypes.INTEGER }
+  releaseDate: { type: DataTypes.DATE, allowNull: false },
+  wholesalePrice: { type: DataTypes.FLOAT, allowNull: false },
+  retailPrice: { type: DataTypes.FLOAT, allowNull: false },
+ 
 });
+
+  
+
+
 
 const Company = sequelize.define('Company', {
   name: { type: DataTypes.STRING, allowNull: false },
@@ -37,11 +39,11 @@ const Company = sequelize.define('Company', {
 Musician.belongsTo(Ensemble);
 Ensemble.hasMany(Musician);
 
-Composition.belongsToMany(Record, { through: 'CompositionRecord' });
-Record.belongsToMany(Composition, { through: 'CompositionRecord' });
+// Composition.belongsToMany(Record, { through: 'CompositionRecord' });
+// Record.belongsToMany(Composition, { through: 'CompositionRecord' });
 
-Record.belongsTo(Company);
-Company.hasMany(Record);
+// Record.belongsTo(Company);
+// Company.hasMany(Record);
 
 
 module.exports = {

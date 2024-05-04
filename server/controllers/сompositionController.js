@@ -38,16 +38,18 @@ class CompositionController {
         const { id } = req.params;
         const { title, composer } = req.body;
         try {
-            const composition = await Composition.findByPk(id);
+            let composition = await Composition.findByPk(id);
             if (!composition) {
-                return next(ApiError.notFound('Произведение не найдено'));
+                return next(ApiError.notFound('Ансамбль не найден'));
             }
-            composition.title = title;
-            composition.composer = composer;
-            await composition.save();
-            return res.json(composition);
+            
+            // Обновляем поля ансамбля
+            composition = await composition.update({ title, composer });
+    
+            // Возвращаем обновленный ансамбль
+            return res.json(composition);  
         } catch (err) {
-            return next(ApiError.internal('Ошибка при обновлении произведения'));
+            return next(ApiError.internal('Ошибка при обновлении ансамбля'));
         }
     }
 

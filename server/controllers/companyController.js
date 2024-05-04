@@ -13,6 +13,7 @@ class CompanyController {
     }
 
     async getAll(req, res, next) {
+        
         try {
             const companies = await Company.findAll();
             return res.json(companies);
@@ -38,16 +39,18 @@ class CompanyController {
         const { id } = req.params;
         const { name, address } = req.body;
         try {
-            const company = await Company.findByPk(id);
+            let company = await Company.findByPk(id);
             if (!company) {
-                return next(ApiError.notFound('Компания не найдена'));
+                return next(ApiError.notFound('Ансамбль не найден'));
             }
-            company.name = name;
-            company.address = address;
-            await company.save();
-            return res.json(company);
+            
+            // Обновляем поля ансамбля
+            company = await company.update({ name, address });
+    
+            // Возвращаем обновленный ансамбль
+            return res.json(company);  
         } catch (err) {
-            return next(ApiError.internal('Ошибка при обновлении компании'));
+            return next(ApiError.internal('Ошибка при обновлении ансамбля'));
         }
     }
 

@@ -38,14 +38,16 @@ class EnsembleController {
         const { id } = req.params;
         const { name, type } = req.body;
         try {
-            const ensemble = await Ensemble.findByPk(id);
+            let ensemble = await Ensemble.findByPk(id);
             if (!ensemble) {
                 return next(ApiError.notFound('Ансамбль не найден'));
             }
-            ensemble.name = name;
-            ensemble.type = type;
-            await ensemble.save();
-            return res.json(ensemble);
+            
+            // Обновляем поля ансамбля
+            ensemble = await ensemble.update({ name, type });
+    
+            // Возвращаем обновленный ансамбль
+            return res.json(ensemble);  
         } catch (err) {
             return next(ApiError.internal('Ошибка при обновлении ансамбля'));
         }
