@@ -6,6 +6,6 @@ router.post('/',musiciansController.create)
 router.get('/',musiciansController.getAll)
 router.get('/:id',musiciansController.getOne)
 router.put('/',musiciansController.update)
-router.delete('/',musiciansController.delete)
+router.delete('/:id',musiciansController.delete)
 
 module.exports = router

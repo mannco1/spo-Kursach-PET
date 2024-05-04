@@ -6,6 +6,6 @@ router.post('/',compositionController.create)
 router.get('/',compositionController.getAll)
 router.get('/:id',compositionController.getOne)
 router.put('/',compositionController.update)
-router.delete('/',compositionController.delete)
+router.delete('/:id',compositionController.delete)
 
 module.exports = router

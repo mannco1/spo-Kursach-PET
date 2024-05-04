@@ -6,6 +6,6 @@ router.post('/',ensembleController.create)
 router.get('/',ensembleController.getAll)
 router.get('/:id',ensembleController.getOne)
 router.put('/',ensembleController.update)
-router.delete('/',ensembleController.delete)
+router.delete('/:id',ensembleController.delete)
 
 module.exports = router
