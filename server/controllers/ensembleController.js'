@@ -11,7 +11,7 @@ class EnsembleController {
             return next(ApiError.internal('Ошибка при создании ансамбля'));
         }
     }
-
+    
     async getAll(req, res, next) {
         try {
             const ensembles = await Ensemble.findAll();
