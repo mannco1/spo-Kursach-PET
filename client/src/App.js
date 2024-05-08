@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom
 import MainPage from './pages/MainPage.jsx';
 import MusicPage from './pages/MusicPage.jsx';
 import Error404 from './pages/Error404.jsx';
+import Bands from './pages/Bands.jsx';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage/>} />
         <Route path="/music" element={<MusicPage/>} />
+        <Route path="/bands" element={<Bands/>} />
         <Route  path="*" element={<Error404/>}/>
       </Routes>
     </div>
