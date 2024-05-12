@@ -10,15 +10,15 @@ const Musician = sequelize.define('musician', {
 const Leader = sequelize.define('leader', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: { type: DataTypes.STRING, allowNull: false },
-  ensemble_id: {type: DataTypes.INTEGER, allowNull: false },
+  
   
 });
-
+ 
 
 const Ensemble = sequelize.define('ensemble', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: { type: DataTypes.STRING, allowNull: false },
-  leader_id: { type: DataTypes.INTEGER, allowNull: false },
+  leader_id: { type: DataTypes.INTEGER, allowNull: true },
   
 });
 
@@ -27,7 +27,8 @@ const Perfomance = sequelize.define('perfomance', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   title: { type: DataTypes.STRING, allowNull: false },
   composer: { type: DataTypes.STRING },
-  image: { type: DataTypes.BLOB },
+  img: {type: DataTypes.STRING, allowNull: false},
+  
 });
 
 
@@ -113,5 +114,6 @@ module.exports = {
   Perfomance,
   Matrix,
   Plate,
-  Company
+  Company,
+  Leader,
 };

@@ -8,9 +8,8 @@ const perfomanceRouter = require('./perfomanceRouter')
 const matrixRouter = require('./matrixRouter')
 const leaderRouter = require('./leaderRouter')
 
-
-router.use('/company',companyRouter)
 router.use('/leader',leaderRouter)
+router.use('/company',companyRouter)
 router.use('/musicians',musiciansRouter)
 router.use('/ensemble',ensembleRouter)
 router.use('/perfomance', perfomanceRouter)

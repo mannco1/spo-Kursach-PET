@@ -1,16 +1,22 @@
 const { Perfomance } = require('../models/models');
 const ApiError = require('../error/ApiError');
+const uuid = require('uuid')
+const path = require('path');
 
 class PerfomanceController {
     async create(req, res, next) {
-        const { title, composer } = req.body;
-        try {
-            const perfomance = await Perfomance.create({ title, composer });
+      
+        try { 
+            let { title, composer } = req.body;
+            const {img} = req.files;
+            let fileName = uuid.v4() + ".jpg"
+            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+            const perfomance = await Perfomance.create({ title, composer,img: fileName });
             return res.json(perfomance);
         } catch (err) {
             return next(ApiError.internal('Ошибка при создании выступления'));
         }
-    }
+    } 
 
     async getAll(req, res, next) {
         try {
@@ -34,7 +40,7 @@ class PerfomanceController {
         }
     }
 
-    async update(req, res, next) {
+    async  update(req, res, next) {
         const { id } = req.params;
         const { title, composer } = req.body;
         try {
@@ -43,9 +49,20 @@ class PerfomanceController {
                 return next(ApiError.notFound('Выступление не найдено'));
             }
             
-            // Обновляем поля выступления
-            perfomance = await perfomance.update({ title, composer });
+            // Проверяем, есть ли загруженное изображение
+            if (req.file) {
+                // Если есть, то сохраняем его и обновляем путь в базе данных
+                const { image } = req.file;
+                const fileName = uuid.v4() + ".jpg";
+                await fs.rename(image.path, path.resolve(__dirname, '..', 'static', fileName));
+                perfomance.image = fileName;
+            } 
     
+            // Обновляем остальные поля выступления
+            perfomance.title = title;
+            perfomance.composer = composer;
+            await perfomance.save();
+            
             // Возвращаем обновленное выступление
             return res.json(perfomance);  
         } catch (err) {

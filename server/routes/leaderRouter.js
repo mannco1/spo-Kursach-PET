@@ -8,4 +8,4 @@ router.get('/:id',leaderController.getOne)
 router.put('/:id',leaderController.update)
 router.delete('/:id',leaderController.delete)
 
-module.exports = router
+module.exports = router 

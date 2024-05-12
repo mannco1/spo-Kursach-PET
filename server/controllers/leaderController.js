@@ -3,16 +3,17 @@ const ApiError = require('../error/ApiError');
 
 class LeaderController {
     async create(req, res, next) {
-        const { name, ensemble_id } = req.body;
+        
         try {
-            const leader = await Leader.create({ name, ensemble_id });
+            let { name } = req.body;
+            const leader = await Leader.create({ name });
             return res.json(leader);
         } catch (err) {
             return next(ApiError.internal('Ошибка при создании лидера'));
         }
-    }
+    } 
 
-    async getAll(req, res, next) {
+    async getAll(req, res, next) { 
         try {
             const leaders = await Leader.findAll();
             return res.json(leaders);
