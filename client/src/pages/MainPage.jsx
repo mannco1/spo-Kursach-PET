@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Home from "../components/Home.jsx";
 import Slider from "../components/Slider.jsx";
@@ -19,4 +20,3 @@ const MainPage = () => {
 };
 
 export default MainPage;
-

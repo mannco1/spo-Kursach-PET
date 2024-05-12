@@ -40,7 +40,7 @@ const MyPagination = () => {
 
     return (
         <div style={{padding:' 0 0 100px 0'}}>
-            <div style={{fontSize:'1rem',color:'white',fontFamily:'JetBrains Mono'}}>Showing {start+1}-{itemsPerPage} of {totalItems} results</div>
+            <div style={{fontSize:'1rem',color:'white',fontFamily:'JetBrains Mono'}}>Showing {start+1}-{end} of {totalItems} results</div>
             <SquareForms  firstP={start} secondP={end} />
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <button
