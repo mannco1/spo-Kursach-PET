@@ -26,7 +26,8 @@ const Ensemble = sequelize.define('ensemble', {
 const Perfomance = sequelize.define('perfomance', { 
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   title: { type: DataTypes.STRING, allowNull: false },
-  composer: { type: DataTypes.STRING }
+  composer: { type: DataTypes.STRING },
+  image: { type: DataTypes.BLOB },
 });
 
 
@@ -64,19 +65,19 @@ Musician.belongsTo(Ensemble);
 Ensemble.hasMany(Musician);
 
 // Лидеры (Leader) относятся к ансамблям (Ensemble)
-Leader.belongsTo(Ensemble, { foreignKey: 'ensemble_id' });
-Ensemble.hasOne(Leader, { foreignKey: 'ensemble_id' });
+
+
 
 // Выступления (Perfomance) относятся к компаниям (Company)
 Perfomance.belongsTo(Company);
 Company.hasMany(Perfomance);
-
+ 
 // Матрицы (Matrix) связаны с компаниями (Company) и выступлениями (Perfomance)
 Matrix.belongsTo(Company);
 Company.hasMany(Matrix);
 Matrix.belongsTo(Perfomance);
 Perfomance.hasMany(Matrix);
-
+ 
 // Пластинки (Plate) связаны с матрицами (Matrix) и выступлениями (Perfomance)
 Plate.belongsTo(Matrix);
 Matrix.hasMany(Plate);
