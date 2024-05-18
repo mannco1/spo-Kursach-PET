@@ -12,7 +12,8 @@ const Slider = () => {
         <Carousel.Item interval={3000}>
           <img
             className="d-block mx-auto"
-            src={mypic1}
+            src={mypic3}
+            
             alt="First slide"
           />
         </Carousel.Item>
@@ -26,8 +27,23 @@ const Slider = () => {
         <Carousel.Item interval={10000}>
           <img
             className="d-block mx-auto"
-            src={mypic3}
+            src={mypic1}
             alt="Third slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item interval={10000}>
+          <img
+            className="d-block mx-auto"
+            src={mypic3}
+            
+            alt="First slide"
+          />
+        </Carousel.Item>
+        <Carousel.Item interval={10000}>
+          <img
+            className="d-block mx-auto"
+            src={mypic2}
+            alt="Second slide"
           />
         </Carousel.Item>
         

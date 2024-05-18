@@ -15,8 +15,8 @@ class MusiciansController {
             
             return next(ApiError.internal('Ошибка при создании музыканта'));
         }
-    }
-
+    } 
+  
     async getAll(req, res) {
         try {
             const musicians = await Musicians.findAll();

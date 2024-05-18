@@ -8,27 +8,25 @@ const Musician = sequelize.define('musician', {
 });
 
 const Leader = sequelize.define('leader', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  name: { type: DataTypes.STRING, allowNull: false },
-  
-  
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, allowNull: false }
 });
- 
 
 const Ensemble = sequelize.define('ensemble', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
-  leader_id: { type: DataTypes.INTEGER, allowNull: true },
-  
-});
-
+  leaderId: { type: DataTypes.INTEGER, allowNull: false }, // Добавляем поле для хранения идентификатора лидера
+  img: {type: DataTypes.STRING, allowNull: false},
+}); 
+   
 
 const Perfomance = sequelize.define('perfomance', { 
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   title: { type: DataTypes.STRING, allowNull: false },
   composer: { type: DataTypes.STRING },
+  description: { type: DataTypes.STRING },
   img: {type: DataTypes.STRING, allowNull: false},
-  
+   
 });
 
 
@@ -62,51 +60,33 @@ const Plate = sequelize.define('plate', {
 });
 
 
-Musician.belongsTo(Ensemble);
-Ensemble.hasMany(Musician);
+// Ensemble.belongsTo(Leader, { foreignKey: 'leader_id' });
 
-// Лидеры (Leader) относятся к ансамблям (Ensemble)
-
-
-
-// Выступления (Perfomance) относятся к компаниям (Company)
-Perfomance.belongsTo(Company);
-Company.hasMany(Perfomance);
  
-// Матрицы (Matrix) связаны с компаниями (Company) и выступлениями (Perfomance)
-Matrix.belongsTo(Company);
-Company.hasMany(Matrix);
-Matrix.belongsTo(Perfomance);
-Perfomance.hasMany(Matrix);
+// Musician.belongsTo(Ensemble);
+// Ensemble.hasMany(Musician);
+
+// Perfomance.belongsTo(Company);
+// Company.hasMany(Perfomance); 
  
-// Пластинки (Plate) связаны с матрицами (Matrix) и выступлениями (Perfomance)
-Plate.belongsTo(Matrix);
-Matrix.hasMany(Plate);
-Plate.belongsTo(Perfomance);
-Perfomance.hasMany(Plate);
+// Matrix.belongsTo(Company);
+// Company.hasMany(Matrix);
+// Matrix.belongsTo(Perfomance);
+// Perfomance.hasMany(Matrix);
 
-// Определение отношений между моделями
-Ensemble.belongsTo(Leader, { foreignKey: 'leader_id', as: 'leader' });
-Leader.belongsTo(Musician, { foreignKey: 'id', as: 'musician' });
 
-// Запрос для получения данных
-Ensemble.findAll({
-  include: [{
-    model: Leader,
-    as: 'leader',
-    include: [{
-      model: Musician,
-      as: 'musician',
-      attributes: ['id', 'name', 'instrument']
-    }]
-  }]
-}).then(ensembles => {
-  // Обработка результатов запроса
-  console.log(ensembles);
-}).catch(error => {
-  // Обработка ошибок
-  console.error('Ошибка:', error);
-});
+// Plate.belongsTo(Matrix);
+// Matrix.hasMany(Plate);
+// Plate.belongsTo(Perfomance);
+// Perfomance.hasMany(Plate);
+
+
+
+
+// Ensemble.belongsTo(Leader, { foreignKey: 'leader_id', as: 'leader' });
+// Leader.belongsTo(Musician, { foreignKey: 'musician_id', as: 'musician' });
+
+
 
 module.exports = {
   Musician,

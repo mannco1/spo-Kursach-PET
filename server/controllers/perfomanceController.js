@@ -1,17 +1,16 @@
 const { Perfomance } = require('../models/models');
 const ApiError = require('../error/ApiError');
-const uuid = require('uuid')
+const uuid = require('uuid');
 const path = require('path');
 
 class PerfomanceController {
     async create(req, res, next) {
-      
-        try { 
-            let { title, composer } = req.body;
+        try {  
+            let { title, composer,description } = req.body;
             const {img} = req.files;
             let fileName = uuid.v4() + ".jpg"
             img.mv(path.resolve(__dirname, '..', 'static', fileName))
-            const perfomance = await Perfomance.create({ title, composer,img: fileName });
+            const perfomance = await Perfomance.create({ title, composer,description,img: fileName });
             return res.json(perfomance);
         } catch (err) {
             return next(ApiError.internal('Ошибка при создании выступления'));
@@ -19,8 +18,8 @@ class PerfomanceController {
     } 
 
     async getAll(req, res, next) {
-        try {
-            const perfomances = await Perfomance.findAll();
+        try {  
+            const perfomances = await Perfomance.findAll();  
             return res.json(perfomances);
         } catch (err) {
             return next(ApiError.internal('Ошибка при получении списка выступлений'));

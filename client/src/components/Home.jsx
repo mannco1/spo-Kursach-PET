@@ -5,8 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {  Link } from 'react-router-dom';
 
-import helmet from './pic/Untitled 5.jpg'
 import helmetnon from './pic/helmet - non.jpg'
 const Home = () => {
     
@@ -17,7 +17,7 @@ const Home = () => {
         <div className='container-Home'>
        <div className='mjolnir-pic'>
 
-       <a href='/'> <img src={helmetnon} alt="Mjolnir Helmet" className="responsive-img"/></a>
+       <Link to="/"> <img src={helmetnon} alt="Mjolnir Helmet" className="responsive-img"/></Link>
         
         </div>
 
@@ -25,16 +25,18 @@ const Home = () => {
          <AppBar position="static" color="default" style={{ backgroundColor: '#000000',}}>
       <Toolbar>
         <div className='button-group-header' >
-       <a href='/'><Button className='button-style-main' style={{ fontSize: '3rem' }}>HoF</Button></a>
-        <a href='news'><Button className='button-style' style={{ fontSize: '1rem' }}>Новости</Button></a>
-        <a href='music'><Button className='button-style' style={{ fontSize: '1rem' }}>Музыка</Button></a>
-        <a href='merch'><Button className='button-style' style={{ fontSize: '1rem' }}>Мерч</Button></a>
-        <a href='bands'><Button className='button-style' style={{ fontSize: '1rem' }}>Группы</Button></a>
+
+        <Link to="/"> <Button className='button-style-main' style={{ fontSize: '3rem' }}>HoF</Button></Link>
+        <Link to="news"><Button className='button-style' style={{ fontSize: '1rem' }}>Новости</Button></Link>
+        <Link to="music"><Button className='button-style' style={{ fontSize: '1rem' }}>Музыка</Button></Link>
+        <Link to="merch"><Button className='button-style' style={{ fontSize: '1rem' }}>Мерч</Button></Link>
+        <Link to="bands"><Button className='button-style' style={{ fontSize: '1rem' }}>Группы</Button></Link>
+
         </div>
 
      
           <IconButton className='button-style' aria-label="Корзина" style={{marginLeft: 'auto'}}>
-            <a href='/backet' style={{color:'white'}}><ShoppingCartIcon /></a>
+            <Link to='/backet' style={{color:'white'}}><ShoppingCartIcon /></Link>
         </IconButton>
        
 

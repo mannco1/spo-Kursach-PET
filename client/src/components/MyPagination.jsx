@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import SquareForms from './SquareForms';
-import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
-import Stack from '@mui/material/Stack';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
 
 
 const MyPagination = () => {
@@ -41,7 +37,7 @@ const MyPagination = () => {
     return (
         <div style={{padding:' 0 0 100px 0'}}>
             <div style={{fontSize:'1rem',color:'white',fontFamily:'JetBrains Mono'}}>Showing {start+1}-{end} of {totalItems} results</div>
-            <SquareForms  firstP={start} secondP={end} />
+            <SquareForms start={start} end={end}  />
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <button
                     onClick={handlePrevPage}

@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage.jsx';
 import MusicPage from './pages/MusicPage.jsx';
 import Error404 from './pages/Error404.jsx';
 import Bands from './pages/Bands.jsx';
+import DetailPage from './pages/detailPage.jsx';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<MainPage/>} />
         <Route path="/music" element={<MusicPage/>} />
         <Route path="/bands" element={<Bands/>} />
+        <Route path="/detail/:id" element={<DetailPage/>} />
         <Route  path="*" element={<Error404/>}/>
       </Routes>
     </div>

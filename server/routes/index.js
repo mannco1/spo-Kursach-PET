@@ -13,7 +13,7 @@ router.use('/company',companyRouter)
 router.use('/musicians',musiciansRouter)
 router.use('/ensemble',ensembleRouter)
 router.use('/perfomance', perfomanceRouter)
-router.use('/plate',plateRouter)
+router.use('/plate',plateRouter) 
 router.use('/matrix',matrixRouter)
 
 
