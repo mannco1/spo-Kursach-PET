@@ -24,7 +24,7 @@ class EnsembleController {
             const filePath = path.resolve(__dirname, '..', 'static', fileName);
             await img.mv(filePath);
 
-            // Создание записи ансамбля
+            // Создание записи ансамбля 
             const ensemble = await Ensemble.create({
                 name,
                 leaderId,

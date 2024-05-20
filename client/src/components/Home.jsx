@@ -6,8 +6,8 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {  Link } from 'react-router-dom';
-
 import helmetnon from './pic/helmet - non.jpg'
+
 const Home = () => {
     
   
@@ -26,7 +26,7 @@ const Home = () => {
       <Toolbar>
         <div className='button-group-header' >
 
-        <Link to="/"> <Button className='button-style-main' style={{ fontSize: '3rem' }}>HoF</Button></Link>
+        <Link to="/"><Button className='button-style-main' style={{ fontSize: '3rem' }}>HoF Camp</Button></Link>
         <Link to="news"><Button className='button-style' style={{ fontSize: '1rem' }}>Новости</Button></Link>
         <Link to="music"><Button className='button-style' style={{ fontSize: '1rem' }}>Музыка</Button></Link>
         <Link to="merch"><Button className='button-style' style={{ fontSize: '1rem' }}>Мерч</Button></Link>

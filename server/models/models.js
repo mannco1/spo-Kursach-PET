@@ -15,10 +15,10 @@ const Leader = sequelize.define('leader', {
 const Ensemble = sequelize.define('ensemble', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
-  leaderId: { type: DataTypes.INTEGER, allowNull: false }, // Добавляем поле для хранения идентификатора лидера
+  leaderId:{type: DataTypes.STRING, allowNull: false},
   img: {type: DataTypes.STRING, allowNull: false},
 }); 
-   
+    
 
 const Perfomance = sequelize.define('perfomance', { 
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -60,7 +60,7 @@ const Plate = sequelize.define('plate', {
 });
 
 
-// Ensemble.belongsTo(Leader, { foreignKey: 'leader_id' });
+
 
  
 // Musician.belongsTo(Ensemble);
@@ -70,8 +70,8 @@ const Plate = sequelize.define('plate', {
 // Company.hasMany(Perfomance); 
  
 // Matrix.belongsTo(Company);
-// Company.hasMany(Matrix);
-// Matrix.belongsTo(Perfomance);
+// Company.hasMany(Matrix); 
+// Matrix.belongsTo(Perfomance); 
 // Perfomance.hasMany(Matrix);
 
 

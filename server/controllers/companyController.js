@@ -1,7 +1,7 @@
 const { Company } = require('../models/models');
 const ApiError = require('../error/ApiError');
 
-class CompanyController {
+class CompanyController { 
     async create(req, res, next) {
         const { name, address } = req.body;
         try {
@@ -9,8 +9,8 @@ class CompanyController {
             return res.json(company);
         } catch (err) {
             return next(ApiError.internal('Ошибка при создании компании'));
-        }
-    }
+        } 
+    }  
 
     async getAll(req, res, next) {
         
@@ -43,7 +43,7 @@ class CompanyController {
             if (!company) {
                 return next(ApiError.notFound('Ансамбль не найден'));
             }
-            
+             
             // Обновляем поля ансамбля
             company = await company.update({ name, address });
     
@@ -52,7 +52,7 @@ class CompanyController {
         } catch (err) {
             return next(ApiError.internal('Ошибка при обновлении ансамбля'));
         }
-    }
+    } 
 
     async delete(req, res, next) {
         const { id } = req.params;

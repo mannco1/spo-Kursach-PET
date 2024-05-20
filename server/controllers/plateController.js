@@ -11,7 +11,7 @@ class PlateController {
             return next(ApiError.internal('Ошибка при создании пластинки'));
         }
     }
-
+ 
     async getAll(req, res, next) {
         try {
             const plates = await Plate.findAll();
