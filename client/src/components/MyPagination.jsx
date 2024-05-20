@@ -1,76 +1,50 @@
 import React, { useState } from 'react';
 import SquareForms from './SquareForms';
-
-
+import Pagination from 'react-bootstrap/Pagination';
 
 const MyPagination = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 29; // Количество элементов на странице
-    const totalItems = 120; // Общее количество элементов
-    const totalPages = Math.ceil(totalItems / itemsPerPage); // Общее количество страниц
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 29; // Количество элементов на странице
+  const totalItems = 120; // Общее количество элементов
+  const totalPages = Math.ceil(totalItems / itemsPerPage); // Общее количество страниц
 
-    // Генерируем массив страниц для отображения кнопок
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-    }
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
-    const handleNextPage = () => {
-        setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
-    };
+  const calculateRange = (pageNumber) => {
+    const start = (pageNumber - 1) * itemsPerPage;
+    const end = start + itemsPerPage - 1;
+    return [start, end];
+  };
 
-    const handlePrevPage = () => {
-        setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
-    };
+  const [start, end] = calculateRange(currentPage);
 
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
-    const calculateRange = (pageNumber) => {
-        const start = (pageNumber - 1) * itemsPerPage;
-        const end = start + itemsPerPage - 1;
-        return [start, end];
-    };
-    const [start, end] = calculateRange(currentPage);
-
-    return (
-        <div style={{padding:' 0 0 100px 0'}}>
-            <div style={{fontSize:'1rem',color:'white',fontFamily:'JetBrains Mono'}}>Showing {start+1}-{end} of {totalItems} results</div>
-            <SquareForms start={start} end={end}  />
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <button
-                    onClick={handlePrevPage}
-                    disabled={currentPage === 1}
-                    style={{ backgroundColor: 'gray', color: 'white', border: 'none', padding: '8px 16px', marginRight: '5px' }}
-                >
-                    Предыдущая страница
-                </button>
-                {pageNumbers.map(number => (
-                    <button
-                        key={number}
-                        onClick={() => handlePageChange(number)}
-                        style={{
-                            backgroundColor: currentPage === number ? 'black' : 'gray',
-                            color:  currentPage === number ? 'red' : 'white',   
-                            border: '3px solid gray',
-                            padding: '8px 16px',
-                            marginRight: '5px'
-                        }}
-                    >
-                        {number}
-                    </button>
-                ))}
-                <button
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages}
-                    style={{ backgroundColor: 'gray', color: 'white', border: 'none', padding: '8px 16px' }}
-                >
-                    Следующая страница
-                </button>
-            </div>
-        </div>
-    );
+  return (
+    <div style={{ padding: '0 0 100px 0' }}>
+      <div style={{ fontSize: '1rem', color: 'white', fontFamily: 'JetBrains Mono' }}>
+        Showing {start + 1}-{end} of {totalItems} results
+      </div>
+      <SquareForms start={start} end={end} />
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        <Pagination>
+          <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+          <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+          {[...Array(totalPages)].map((_, index) => (
+            <Pagination.Item
+              key={index + 1}
+              active={index + 1 === currentPage}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
+          <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
+        </Pagination>
+      </div>
+    </div>
+  );
 };
 
 export default MyPagination;

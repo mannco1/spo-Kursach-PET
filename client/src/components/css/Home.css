@@ -63,3 +63,30 @@
 
 }
 
+
+
+.container-Home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mjolnir-pic {
+  margin-bottom: 20px;
+}
+
+.button-group-header {
+  display: flex;
+  align-items: center;
+}
+
+.button-style-main {
+  color: white;
+}
+
+.button-style {
+  color: white;
+}
+
+
+/* ы */
