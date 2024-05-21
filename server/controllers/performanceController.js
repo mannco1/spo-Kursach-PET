@@ -1,26 +1,42 @@
-const { Perfomance } = require('../models/models');
+const { Performance } = require('../models/models');
 const ApiError = require('../error/ApiError');
 const uuid = require('uuid');
 const path = require('path');
 
-class PerfomanceController {
+class PerformanceController {
+        
     async create(req, res, next) {
-        try {  
-            let { title, composer,description } = req.body;
-            const {img} = req.files;
-            let fileName = uuid.v4() + ".jpg"
-            img.mv(path.resolve(__dirname, '..', 'static', fileName))
-            const perfomance = await Perfomance.create({ title, composer,description,img: fileName });
-            return res.json(perfomance);
+        try {
+            const { title, composer,description } = req.body;
+           
+
+            const { img } = req.files;
+            const fileName = uuid.v4() + path.extname(img.name); 
+
+            // Перемещение файла изображения в статическую директорию 
+            const filePath = path.resolve(__dirname, '..', 'static', fileName);
+            await img.mv(filePath);
+
+            // Создание записи ансамбля 
+            const performance = await Performance.create({
+                title,  
+                composer,
+                description,
+                img: fileName
+            });
+
+            return res.json(performance);
         } catch (err) {
-            return next(ApiError.internal('Ошибка при создании выступления'));
+            console.error(err); // Вывод ошибки в консоль для отладки
+            return next(ApiError.internal('Ошибка при создании ансамбля'));
         }
     } 
+    
 
     async getAll(req, res, next) {
         try {  
-            const perfomances = await Perfomance.findAll();  
-            return res.json(perfomances);
+            const performances = await Performance.findAll();  
+            return res.json(performances);
         } catch (err) {
             return next(ApiError.internal('Ошибка при получении списка выступлений'));
         }
@@ -29,11 +45,11 @@ class PerfomanceController {
     async getOne(req, res, next) {
         const { id } = req.params;
         try {
-            const perfomance = await Perfomance.findByPk(id);
-            if (!perfomance) {
+            const performance = await Performance.findByPk(id);
+            if (!performance) {
                 return next(ApiError.notFound('Выступление не найдено'));
             }
-            return res.json(perfomance);
+            return res.json(performance);
         } catch (err) {
             return next(ApiError.internal('Ошибка при получении выступления'));
         }
@@ -43,8 +59,8 @@ class PerfomanceController {
         const { id } = req.params;
         const { title, composer } = req.body;
         try {
-            let perfomance = await Perfomance.findByPk(id);
-            if (!perfomance) {
+            let performance = await Performance.findByPk(id);
+            if (!performance) {
                 return next(ApiError.notFound('Выступление не найдено'));
             }
             
@@ -54,16 +70,16 @@ class PerfomanceController {
                 const { image } = req.file;
                 const fileName = uuid.v4() + ".jpg";
                 await fs.rename(image.path, path.resolve(__dirname, '..', 'static', fileName));
-                perfomance.image = fileName;
+                performance.image = fileName;
             } 
     
             // Обновляем остальные поля выступления
-            perfomance.title = title;
-            perfomance.composer = composer;
-            await perfomance.save();
+            performance.title = title;
+            performance.composer = composer;
+            await performance.save();
             
             // Возвращаем обновленное выступление
-            return res.json(perfomance);  
+            return res.json(performance);  
         } catch (err) {
             return next(ApiError.internal('Ошибка при обновлении выступления'));
         }
@@ -72,7 +88,7 @@ class PerfomanceController {
     async delete(req, res, next) {
         const { id } = req.params;
         try {
-            await Perfomance.destroy({ where: { id } });
+            await Performance.destroy({ where: { id } });
             return res.json({ message: 'Выступление успешно удалено' });
         } catch (err) {
             return next(ApiError.internal('Ошибка при удалении выступления'));
@@ -80,4 +96,5 @@ class PerfomanceController {
     }
 }
 
-module.exports = new PerfomanceController();
+module.exports = new PerformanceController();
+ 

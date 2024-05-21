@@ -10,7 +10,7 @@ const Musician = sequelize.define('musician', {
 const Leader = sequelize.define('leader', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false }
-});
+}); 
 
 const Ensemble = sequelize.define('ensemble', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -20,16 +20,34 @@ const Ensemble = sequelize.define('ensemble', {
 }); 
     
 
-const Perfomance = sequelize.define('perfomance', { 
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  title: { type: DataTypes.STRING, allowNull: false },
-  composer: { type: DataTypes.STRING },
-  description: { type: DataTypes.STRING },
-  img: {type: DataTypes.STRING, allowNull: false},
-   
+const Performance = sequelize.define('performance', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  composer: {
+    type: DataTypes.STRING,
+    allowNull: true, // Allow null if composer is optional
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: true, // Allow null if description is optional
+  },
+  img: {
+    type: DataTypes.STRING, 
+    allowNull: false, 
+  },
+}, { 
+  timestamps: true, // Adds createdAt and updatedAt fields automatically
+  tableName: 'performances', // Ensure this matches your database table name
 });
 
-
+ 
 
 const Company = sequelize.define('company', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -91,7 +109,7 @@ const Plate = sequelize.define('plate', {
 module.exports = {
   Musician,
   Ensemble,
-  Perfomance,
+  Performance,
   Matrix,
   Plate,
   Company,
