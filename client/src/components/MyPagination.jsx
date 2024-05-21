@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SquareForms from './SquareForms';
 import Pagination from 'react-bootstrap/Pagination';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MyPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,8 +23,16 @@ const MyPagination = () => {
 
   return (
     <div style={{ padding: '0 0 100px 0' }}>
-      <div style={{ fontSize: '1rem', color: 'white', fontFamily: 'JetBrains Mono' }}>
-        Showing {start + 1}-{end} of {totalItems} results
+      <div
+        style={{
+          fontSize: '1rem',
+          color: 'white',
+          fontFamily: 'JetBrains Mono',
+          textAlign: 'center',
+          marginBottom: '20px',
+        }}
+      >
+        Showing {start + 1}-{end + 1 > totalItems ? totalItems : end + 1} of {totalItems} results
       </div>
       <SquareForms start={start} end={end} />
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
