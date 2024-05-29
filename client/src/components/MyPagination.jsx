@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MyPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16; // Количество элементов на странице
-  const totalItems = 120; // Общее количество элементов
+  const itemsPerPage = 6; // Количество элементов на странице
+  const totalItems = 14; // Общее количество элементов
   const totalPages = Math.ceil(totalItems / itemsPerPage); // Общее количество страниц
 
   const handlePageChange = (pageNumber) => {
